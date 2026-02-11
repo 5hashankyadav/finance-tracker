@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Budgets - Finance Tracker{% endblock %}
+
+{% block content %}
+<div class="glass-card">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Budgets</h2>
+        <a href="{% url 'budget_create' %}" class="btn btn-primary">Set New Budget</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-dark table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Category</th>
+                    <th class="text-end">Budget Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for budget in budgets %}
+                <tr>
+                    <td>{{ budget.month|date:"F Y" }}</td>
+                    <td>{{ budget.category.name }}</td>
+                    <td class="text-end">${{ budget.amount }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center text-muted py-4">No budgets set.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

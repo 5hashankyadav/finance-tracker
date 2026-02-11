@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Import Bank Statement - Finance Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="glass-card">
+            <h2 class="mb-4">Import Bank Statement</h2>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+
+            <p class="text-muted mb-4">Upload a CSV file with headers: <code>Date, Amount, Description, Category</code>.
+                Date format should be <code>YYYY-MM-DD</code>. Use negative amounts for expenses.</p>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="form-label">Select CSV File</label>
+                    <input type="file" name="file" class="form-control bg-dark text-white border-secondary" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Start Import</button>
+                    <a href="{% url 'transaction_list' %}" class="btn btn-outline-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

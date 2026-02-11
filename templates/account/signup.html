@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign Up - Finance Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="glass-card">
+            <h2 class="text-center mb-4">Create Account</h2>
+            <form method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <a href="{% url 'account_login' %}" class="btn btn-link text-muted mt-2">Already have an account?
+                        Log in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
